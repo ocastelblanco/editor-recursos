@@ -1,0 +1,11 @@
+:host {
+  ::ng-deep {
+    .p-dialog-content {
+      overflow-y: visible;
+    }
+    .p-autocomplete {
+      width: 100%;
+      margin-bottom: 3em;
+    }
+  }
+}

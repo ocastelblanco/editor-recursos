@@ -1,0 +1,46 @@
+<div class="inicio flex flex-column align-items-center">
+  <h1 class="text-center text-primary">Editor de recursos</h1>
+  <div class="contenedor w-full mt-4 px-6 grid justify-content-center">
+    @for (modulo of modulos; track $index) {
+    <div class="modulo flex justify-content-center col-12 md:col-6 lg:col-3">
+      <p-card class="w-full"
+              [header]="modulo.titulo">
+        <ng-template pTemplate="footer">
+          <div class="footer">
+            @for (boton of modulo.botones; track $index) {
+            <p-button [label]="boton.titulo"
+                      [icon]="boton.icono"
+                      (onClick)="abre(modulo, boton)" />
+            }
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
+    }
+  </div>
+  <p-dialog class="dialogo-editar"
+            [(visible)]="dialogoEditar.abre"
+            [modal]="true"
+            [style]="{ minWidth: '25rem'}"
+            [header]="dialogoEditar.titulo">
+    <div class="contenido-dialogo flex flex-column gap-4">
+      <div class="instruccion">
+        Selecciona un recurso de la lista para editarlo.
+      </div>
+      <p-autoComplete class="w-full"
+                      [(ngModel)]="dialogoEditar.recurso"
+                      [dropdown]="true"
+                      [suggestions]="sugerencias"
+                      optionLabel="titulo"
+                      (completeMethod)="filtraSugerencias($event)" />
+    </div>
+    <ng-template pTemplate="footer">
+      <p-button label="Cancelar"
+                (onClick)="dialogoEditar.abre = false"
+                severity="secondary" />
+      <p-button label="Editar recurso"
+                (onClick)="editar()"
+                severity="primary" />
+    </ng-template>
+  </p-dialog>
+</div>
